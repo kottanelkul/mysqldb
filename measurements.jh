@@ -1,0 +1,34 @@
+entity Measurement {
+    time Instant required
+    value Double
+}
+
+entity Oper_area {
+    name String required
+}
+
+entity Plant_item {
+    name String required
+}
+
+entity Power_meter {
+    name String required
+    description String
+}
+
+entity Parameter {
+    name String required
+    address Integer
+    hex_address String
+    unit Unit
+}
+
+enum Unit { V, A, KW, KVA, KVAR, KWH, X }
+
+relationship ManyToOne {
+    Power_meter{area required} to Oper_area,
+    Power_meter{item required} to Plant_item,
+    Parameter{meter required} to Power_meter,
+    Measurement{parameter required} to Parameter
+    
+}
